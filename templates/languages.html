@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Languages
+{% endblock %}
+{% block content %}
+<h1>Список всех языков</h1>
+<a href="/">Home</a><br>
+<a href="/countries-list/">Список всех стран</a><br>
+<ol>
+    {% for language in languages %}
+    <li><a href="/countries-list/{{ language }}"> {{ language }}</a></li>
+    {% endfor %}
+</ol>
+<a href="/">Home</a><br>
+{% endblock %}

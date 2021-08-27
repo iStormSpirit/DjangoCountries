@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+    Countries
+{% endblock %}
+{% block content %}
+<h1>Список всех стран </h1>
+<h5>all_countries</h5>
+{% for word in alphabet %}
+    <a href="?word={{ word }}">{{ word }}</a>
+{% endfor %}
+<ol>
+    {% for country_name in page_countries %}
+        <li><a href="/country/{{ country_name }}">{{ country_name }}</a></li>
+    {% endfor %}
+</ol>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_countries.has_previous %}
+            <a href="?page=1&word={{ word }}">&laquo; first</a>
+            <a href="?page={{ page_countries.previous_page_number }}&word={{ word }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_countries.number }} of {{ page_countries.paginator.num_pages }}.
+        </span>
+
+        {% if page_countries.has_next %}
+            <a href="?page={{ page_countries.next_page_number }}&word={{ word }}">next</a>
+            <a href="?page={{ page_countries.paginator.num_pages }}&word={{ word }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<a href="/">Home</a><br>
+{% endblock %}
