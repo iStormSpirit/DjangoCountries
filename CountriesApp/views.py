@@ -6,13 +6,17 @@ from django.core.paginator import Paginator
 with open("CountriesApp/list_of_countries.json") as f:
     countries_data = json.load(f)
 
-# Кол-во стран на странице /countries-list/
-COUNTRIES_ON_PAGE = 15
-# Кол-во стран в фильтре по букве /countries-list/?letter=D
+# Кол-во стран на странице
+# /countries-list/?page=2
+COUNTRIES_ON_PAGE = 10
+# Кол-во стран в фильтре по букве
+# /countries-list/?letter=D
 COUNTRIES_ON_LETTER = 10
 # Кол-во языков на странице
-LANGUAGES_ON_PAGE = 15
+# /languages-list/?page=2
+LANGUAGES_ON_PAGE = 10
 # Кол-во языков в фильтре по букве
+# languages-list/?page=2&letter=A
 LANGUAGES_ON_LETTER = 10
 
 

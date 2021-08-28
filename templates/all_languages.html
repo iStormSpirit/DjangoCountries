@@ -1,4 +1,3 @@
-<!--заготовка-->
 {% extends 'base.html' %}
 {% block title %}
     Languages
@@ -6,21 +5,28 @@
 
 {% block content %}
 <h1>Список всех языков</h1>
-
 <h5>Список всех языков по букве</h5>
 <!--Блок словаря-->
 {% for letter in alphabet %}
-<button type="button" class="btn btn-outline-warning"><a href="?letter={{ letter }}">{{ letter }}</a></button>
+<button type="button" class="btn btn-outline-warning">
+    <a href="?letter={{ letter }}">{{ letter }}</a></button>
 {% endfor %}
+
 <br>
-<a href="/countries-list/">Список всех стран</a><br>
-<a href="/languages-list/">Список всех языков</a><br>
+<button type="button" class="btn ">
+    <a href="/countries-list/">Список всех стран</a></button>
+<button type="button" class="btn ">
+    <a href="/">Home</a></button>
+<button type="button" class="btn ">
+    <a href="/languages-list/">Список всех языков</a></button>
+<br>
 
 
 <ol>
     <br>
     {% for language_name in page_languages %}
-    <li><a href="/countries-list/{{ language }}"> {{ language_name }}</a></li>
+    <li><button type="button" class="btn btn-light">
+        <a href="/countries-list/{{ language }}"> {{ language_name }}</a></button></li>
     {% endfor %}
 </ol>
 
@@ -30,8 +36,8 @@
     <span class="step-links">
         <em>Pagination letter</em><br>
         {% if page_languages.has_previous %}
-            <a href="?page=1&letter={{ letter }}">&laquo; first</a>
-            <a href="?page={{ page_languages.previous_page_number }}&letter={{ letter }}">previous</a>
+            <button type="button" class="btn "><a href="?page=1&letter={{ letter }}">&laquo; first</a></button>
+            <button type="button" class="btn "><a href="?page={{ page_languages.previous_page_number }}&letter={{ letter }}">previous</a></button>
         {% endif %}
 
         <span class="current">
@@ -39,8 +45,8 @@
         </span>
 
         {% if page_languages.has_next %}
-            <a href="?page={{ page_languages.next_page_number }}&letter={{ letter }}">next</a>
-            <a href="?page={{ page_languages.paginator.num_pages }}&letter={{ letter }}">last &raquo;</a>
+            <button type="button" class="btn "><a href="?page={{ page_languages.next_page_number }}&letter={{ letter }}">next</a></button>
+            <button type="button" class="btn "><a href="?page={{ page_languages.paginator.num_pages }}&letter={{ letter }}">last &raquo;</a></button>
         {% endif %}
     </span>
 </div>
@@ -52,8 +58,8 @@
     <span class="step-links">
         <em>Pagination languages</em><br>
         {% if page_languages.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_languages.previous_page_number }}">previous</a>
+            <button type="button" class="btn "><a href="?page=1">&laquo; first</a></button>
+            <button type="button" class="btn "><a href="?page={{ page_languages.previous_page_number }}">previous</a></button>
         {% endif %}
 
         <span class="current">
@@ -61,12 +67,10 @@
         </span>
 
         {% if page_languages.has_next %}
-            <a href="?page={{ page_languages.next_page_number }}">next</a>
-            <a href="?page={{ page_languages.paginator.num_pages }}">last &raquo;</a>
+            <button type="button" class="btn "><a href="?page={{ page_languages.next_page_number }}">next</a></button>
+            <button type="button" class="btn "><a href="?page={{ page_languages.paginator.num_pages }}">last &raquo;</a></button>
         {% endif %}
     </span>
 </div>
-<div class="container-fluid">
-    <button type="button" class="btn btn-outline-dark"><a href="/">Home</a><br>
-</div>
+
 {% endblock %}

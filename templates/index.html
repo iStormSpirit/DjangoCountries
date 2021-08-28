@@ -2,10 +2,25 @@
 {% block title %}
 Home
 {% endblock %}
+
 {% block content %}
+
+<br>
 <h1>Добро пожаловать в <br>
     DjangoCountries</h1>
-<a href="/countries-list/">Список всех стран</a><br>
-<a href="/languages-list/">Список всех языков</a><br>
+<br>
+
+<!--<div class="btn-group-vertical" role="group">-->
+<button type="button" class="btn "><a href="/countries-list/">Список всех стран</a></button>
+<button type="button" class="btn "><a href="/languages-list/">Список всех языков</a></button>
+<!--</div>-->
 {% include 'inc/inc-footer.html' %}
 {% endblock %}
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+
+        </div>
+    </div>
+</div>
