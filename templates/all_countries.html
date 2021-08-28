@@ -11,6 +11,9 @@ Countries
 <button type="button" class="btn btn-outline-warning"><a href="?letter={{ letter }}">{{ letter }}</a></button>
 {% endfor %}
 
+<br>
+<a href="/countries-list/">Список всех стран</a><br>
+<a href="/languages-list/">Список всех языков</a><br>
 
 <ol>
     <br>
@@ -23,48 +26,48 @@ Countries
 </ol>
 
 
-<!--<div class="pagination">-->
-<!--    &lt;!&ndash;Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B&ndash;&gt;-->
+<div class="pagination">
+    <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
 
-<!--    <span class="step-links">-->
-<!--        <em>Pagination letter</em><br>-->
-<!--        {% if page_countries.has_previous %}-->
-<!--            <a href="?page=1&letter={{ letter }}">&laquo; first</a>-->
-<!--            <a href="?page={{ page_countries.previous_page_number }}&letter={{ letter }}">previous</a>-->
-<!--        {% endif %}-->
+    <span class="step-links">
+        <em>Pagination letter</em><br>
+        {% if page_countries.has_previous %}
+            <a href="?page=1&letter={{ letter }}">&laquo; first</a>
+            <a href="?page={{ page_countries.previous_page_number }}&letter={{ letter }}">previous</a>
+        {% endif %}
 
-<!--        <span class="current">-->
-<!--            Page {{ page_countries.number }} of {{ page_countries.paginator.num_pages }}-->
-<!--        </span>-->
+        <span class="current">
+            Page {{ page_countries.number }} of {{ page_countries.paginator.num_pages }}
+        </span>
 
-<!--        {% if page_countries.has_next %}-->
-<!--            <a href="?page={{ page_countries.next_page_number }}&letter={{ letter }}">next</a>-->
-<!--            <a href="?page={{ page_countries.paginator.num_pages }}&letter={{ letter }}">last &raquo;</a>-->
-<!--        {% endif %}-->
-<!--    </span>-->
-<!--</div>-->
+        {% if page_countries.has_next %}
+            <a href="?page={{ page_countries.next_page_number }}&letter={{ letter }}">next</a>
+            <a href="?page={{ page_countries.paginator.num_pages }}&letter={{ letter }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 
 <br>
 
-<!--<div class="pagination">-->
-<!--    &lt;!&ndash;Блок пагинации countries-list/?page=2&ndash;&gt;-->
-<!--    <span class="step-links">-->
-<!--        <em>Pagination countries</em><br>-->
-<!--        {% if page_countries.has_previous %}-->
-<!--            <a href="?page=1">&laquo; first</a>-->
-<!--            <a href="?page={{ page_countries.previous_page_number }}">previous</a>-->
-<!--        {% endif %}-->
+<div class="pagination">
+    <!--Блок пагинации countries-list/?page=2-->
+    <span class="step-links">
+        <em>Pagination countries</em><br>
+        {% if page_countries.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_countries.previous_page_number }}">previous</a>
+        {% endif %}
 
-<!--        <span class="current">-->
-<!--            Page {{ page_countries.number }} of {{ page_countries.paginator.num_pages }}-->
-<!--        </span>-->
+        <span class="current">
+            Page {{ page_countries.number }} of {{ page_countries.paginator.num_pages }}
+        </span>
 
-<!--        {% if page_countries.has_next %}-->
-<!--            <a href="?page={{ page_countries.next_page_number }}">next</a>-->
-<!--            <a href="?page={{ page_countries.paginator.num_pages }}">last &raquo;</a>-->
-<!--        {% endif %}-->
-<!--    </span>-->
-<!--</div>-->
+        {% if page_countries.has_next %}
+            <a href="?page={{ page_countries.next_page_number }}">next</a>
+            <a href="?page={{ page_countries.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 <div class="container-fluid">
     <button type="button" class="btn btn-outline-dark"><a href="/">Home</a><br></button>
 </div>

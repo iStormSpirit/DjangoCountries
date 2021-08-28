@@ -11,7 +11,9 @@ COUNTRIES_ON_PAGE = 15
 # Кол-во стран в фильтре по букве /countries-list/?letter=D
 COUNTRIES_ON_LETTER = 10
 # Кол-во языков на странице
-LANGUAGES_ON_PAGE = 20
+LANGUAGES_ON_PAGE = 15
+# Кол-во языков в фильтре по букве
+LANGUAGES_ON_LETTER = 10
 
 
 def main(request):
@@ -83,5 +85,15 @@ def all_languages(request):
     page_number = request.GET.get('page')
     page_languages = paginator.get_page(page_number)
 
+    # Блок проверки на фильтр letter
+    letter = request.GET.get('letter')
+    if letter:
+        language_names = list(filter(lambda name: name[0] == letter, language_names))
+
+        # Блок пагинации в нутри фильтра
+        paginator = Paginator(language_names, LANGUAGES_ON_LETTER)
+        page_number = request.GET.get('page')
+        page_languages = paginator.get_page(page_number)
+
     return render(request, 'all_languages.html',
-                  {"page_languages": page_languages, "alphabet": alphabet})
+                  {"page_languages": page_languages, "alphabet": alphabet,"letter": letter})

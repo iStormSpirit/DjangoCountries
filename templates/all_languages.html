@@ -13,9 +13,9 @@
 <button type="button" class="btn btn-outline-warning"><a href="?letter={{ letter }}">{{ letter }}</a></button>
 {% endfor %}
 <br>
-
-<a href="/">Home</a><br>
 <a href="/countries-list/">Список всех стран</a><br>
+<a href="/languages-list/">Список всех языков</a><br>
+
 
 <ol>
     <br>
@@ -23,6 +23,29 @@
     <li><a href="/countries-list/{{ language }}"> {{ language_name }}</a></li>
     {% endfor %}
 </ol>
+
+<div class="pagination">
+    <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
+
+    <span class="step-links">
+        <em>Pagination letter</em><br>
+        {% if page_languages.has_previous %}
+            <a href="?page=1&letter={{ letter }}">&laquo; first</a>
+            <a href="?page={{ page_languages.previous_page_number }}&letter={{ letter }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_languages.number }} of {{ page_languages.paginator.num_pages }}
+        </span>
+
+        {% if page_languages.has_next %}
+            <a href="?page={{ page_languages.next_page_number }}&letter={{ letter }}">next</a>
+            <a href="?page={{ page_languages.paginator.num_pages }}&letter={{ letter }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<br>
 
 <div class="pagination">
     <!--Блок пагинации countries-list/?page=2-->
