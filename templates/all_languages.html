@@ -1,0 +1,49 @@
+<!--заготовка-->
+{% extends 'base.html' %}
+{% block title %}
+    Languages
+{% endblock %}
+
+{% block content %}
+<h1>Список всех языков</h1>
+
+<h5>Список всех языков по букве</h5>
+<!--Блок словаря-->
+{% for letter in alphabet %}
+<button type="button" class="btn btn-outline-warning"><a href="?letter={{ letter }}">{{ letter }}</a></button>
+{% endfor %}
+<br>
+
+<a href="/">Home</a><br>
+<a href="/countries-list/">Список всех стран</a><br>
+
+<ol>
+    <br>
+    {% for language_name in page_languages %}
+    <li><a href="/countries-list/{{ language }}"> {{ language_name }}</a></li>
+    {% endfor %}
+</ol>
+
+<div class="pagination">
+    <!--Блок пагинации countries-list/?page=2-->
+    <span class="step-links">
+        <em>Pagination languages</em><br>
+        {% if page_languages.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_languages.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_languages.number }} of {{ page_languages.paginator.num_pages }}
+        </span>
+
+        {% if page_languages.has_next %}
+            <a href="?page={{ page_languages.next_page_number }}">next</a>
+            <a href="?page={{ page_languages.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<div class="container-fluid">
+    <button type="button" class="btn btn-outline-dark"><a href="/">Home</a><br>
+</div>
+{% endblock %}

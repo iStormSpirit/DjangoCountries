@@ -10,6 +10,8 @@ with open("CountriesApp/list_of_countries.json") as f:
 COUNTRIES_ON_PAGE = 15
 # Кол-во стран в фильтре по букве /countries-list/?letter=D
 COUNTRIES_ON_LETTER = 10
+# Кол-во языков на странице
+LANGUAGES_ON_PAGE = 20
 
 
 def main(request):
@@ -53,15 +55,6 @@ def country_page(request, country_name):
     raise Http404
 
 
-# Функция создания странички languages (вывод всех языков)
-def languages(request):
-    languages = set()
-    for country_dict in countries_data:
-        languages.update(country_dict["languages"])
-
-    return render(request, 'languages.html', {"languages": sorted(languages)})
-
-
 # Функция для отображения стран при переходе по языку
 def countries_filter_by_language(request, language):
     country_names = []
@@ -70,3 +63,25 @@ def countries_filter_by_language(request, language):
             country_names.append(country_dict["country"])
     return render(request, 'all_countries.html', {"page_countries": country_names})
 
+
+def all_languages(request):
+    alphabet = string.ascii_uppercase
+
+    # Блок создание множества уникальных языков
+    languages = set()
+    for languages_dict in countries_data:
+        languages.update(languages_dict["languages"])
+
+    # Блок добавления и сортировки уникальных языков в список из множества
+    language_names = []
+    for i in languages:
+        language_names.append(i)
+    language_names = sorted(language_names)
+
+    # Блок пагинации всего списка языков
+    paginator = Paginator(language_names, LANGUAGES_ON_PAGE)
+    page_number = request.GET.get('page')
+    page_languages = paginator.get_page(page_number)
+
+    return render(request, 'all_languages.html',
+                  {"page_languages": page_languages, "alphabet": alphabet})
