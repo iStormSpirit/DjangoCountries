@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-    Countries
+    {{ page_name }}
 {% endblock %}
 
 {% block content %}
@@ -26,7 +26,8 @@
     <!--    views.py COUNTRIES_ON_PAGE = 10-->
     {% for country_name in page_countries %}
     <!--    Гиперсылки стран-->
-    <li><button type="button" class="btn btn-light"><a href="/country/{{ country_name }}">{{ country_name }}</a></button></li>
+    <li><button type="button" class="btn btn-light">
+        <a href="/country/{{ country_name }}">{{ country_name }}</a></button></li>
     {% endfor %}
 </ol>
 

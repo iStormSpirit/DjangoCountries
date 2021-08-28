@@ -6,26 +6,23 @@ from django.core.paginator import Paginator
 with open("CountriesApp/list_of_countries.json") as f:
     countries_data = json.load(f)
 
-# Кол-во стран на странице
-# /countries-list/?page=2
+# Кол-во стран на странице /countries-list/?page=2
 COUNTRIES_ON_PAGE = 10
-# Кол-во стран в фильтре по букве
-# /countries-list/?letter=D
+# Кол-во стран в фильтре по букве /countries-list/?letter=D
 COUNTRIES_ON_LETTER = 10
-# Кол-во языков на странице
-# /languages-list/?page=2
+# Кол-во языков на странице /languages-list/?page=2
 LANGUAGES_ON_PAGE = 10
-# Кол-во языков в фильтре по букве
-# languages-list/?page=2&letter=A
+# Кол-во языков в фильтре по букве languages-list/?page=2&letter=A
 LANGUAGES_ON_LETTER = 10
 
 
 def main(request):
-    return render(request, 'index.html')
+    context = {'page_name': "HOME"}
+    return render(request, 'index.html', context)
 
 
 # Функция создание странички списка стран countries_list
-def all_countries(request):
+def all_countries(request, letter=None):
     alphabet = string.ascii_uppercase
     country_names = []
     for country_dict in countries_data:
@@ -45,8 +42,9 @@ def all_countries(request):
         paginator = Paginator(country_names, COUNTRIES_ON_LETTER)
         page_number = request.GET.get('page')
         page_countries = paginator.get_page(page_number)
-    return render(request, 'all_countries.html',
-                  {"page_countries": page_countries, "alphabet": alphabet, "letter": letter})
+
+    context = {'page_name': "Countries", "page_countries": page_countries, "alphabet": alphabet, "letter": letter}
+    return render(request, 'all_countries.html', context)
 
 
 # функция сзодания странички страны country/country_name
@@ -57,7 +55,9 @@ def country_page(request, country_name):
         if country_dict["country"] == country_name:
             country["name"] = country_dict["country"]
             country["languages"] = country_dict["languages"]
-            return render(request, 'country_page.html', {"country": country})
+
+            context = {'page_name': "Country: ", "country": country}
+            return render(request, 'country_page.html', context)
     raise Http404
 
 
@@ -99,5 +99,5 @@ def all_languages(request):
         page_number = request.GET.get('page')
         page_languages = paginator.get_page(page_number)
 
-    return render(request, 'all_languages.html',
-                  {"page_languages": page_languages, "alphabet": alphabet,"letter": letter})
+    context = {'page_name': "Languages", "page_languages": page_languages, "alphabet": alphabet, "letter": letter}
+    return render(request, 'all_languages.html', context)
