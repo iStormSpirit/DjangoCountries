@@ -6,12 +6,11 @@ from django.core.paginator import Paginator
 with open("CountriesApp/list_of_countries.json") as f:
     countries_data = json.load(f)
 
-COUNTRIES_ON_PAGE = 20
+# Кол-во стран на странице /countries-list/
+COUNTRIES_ON_PAGE = 15
+# Кол-во стран в фильтре по букве /countries-list/?letter=D
+COUNTRIES_ON_LETTER = 10
 
-
-# LANGUAGES_ON_PAGE = 20
-
-# alphabet = string.ascii_uppercase # передаем алфавит в на страничку
 
 def main(request):
     return render(request, 'index.html')
@@ -19,17 +18,27 @@ def main(request):
 
 # Функция создание странички списка стран countries_list
 def all_countries(request):
-    # Создаем список и наполняем странами из .json
+    alphabet = string.ascii_uppercase
     country_names = []
     for country_dict in countries_data:
         country_names.append(country_dict["country"])
 
-    # Блок отвечающий за пагинацию, кол-во всех стран на странице
+    # Блок отвечающий за пагинацию всех стран на странице /countries-list/?page=3
     paginator = Paginator(country_names, COUNTRIES_ON_PAGE)
     page_number = request.GET.get('page')
     page_countries = paginator.get_page(page_number)
+
+    # Блок проверки на фильтр letter
+    letter = request.GET.get('letter')
+    if letter:
+        country_names = list(filter(lambda name: name[0] == letter, country_names))
+
+        # Блок пагинации в нутри фильтра  /countries-list/?page=3&letter=A
+        paginator = Paginator(country_names, COUNTRIES_ON_LETTER)
+        page_number = request.GET.get('page')
+        page_countries = paginator.get_page(page_number)
     return render(request, 'all_countries.html',
-                  {"page_countries": page_countries})
+                  {"page_countries": page_countries, "alphabet": alphabet, "letter": letter})
 
 
 # функция сзодания странички страны country/country_name
@@ -46,18 +55,18 @@ def country_page(request, country_name):
 
 # Функция создания странички languages (вывод всех языков)
 def languages(request):
-    langs = set()
+    languages = set()
     for country_dict in countries_data:
-        langs.update(country_dict["languages"])
+        languages.update(country_dict["languages"])
 
-    return render(request, 'languages.html', {"languages": sorted(langs)})
+    return render(request, 'languages.html', {"languages": sorted(languages)})
 
 
 # Функция для отображения стран при переходе по языку
-def countries_filter_by_lang(request, language):
-    # alphabet = string.ascii_uppercase
+def countries_filter_by_language(request, language):
     country_names = []
     for country_dict in countries_data:
         if language in country_dict["languages"]:
             country_names.append(country_dict["country"])
-    return render(request, 'all_countries.html', {"page_countries": country_names, })
+    return render(request, 'all_countries.html', {"page_countries": country_names})
+
