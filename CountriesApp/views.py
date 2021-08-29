@@ -24,6 +24,8 @@ def main(request):
 # Функция создание странички списка стран countries_list
 def all_countries(request):
     alphabet = string.ascii_uppercase
+
+    # Блок добавления стран список
     country_names = []
     for country_dict in countries_data:
         country_names.append(country_dict["country"])
@@ -33,7 +35,7 @@ def all_countries(request):
     page_number = request.GET.get('page')
     page_countries = paginator.get_page(page_number)
 
-    # Блок проверки на фильтр letter
+    # Блок фильтр проверки на letter
     letter = request.GET.get('letter')
     if letter:
         country_names = list(filter(lambda name: name[0] == letter, country_names))
@@ -57,7 +59,6 @@ def all_countries(request):
 # функция сзодания странички страны country/country_name
 def country_page(request, country_name):
     country = {}
-
     for country_dict in countries_data:
         if country_dict["country"] == country_name:
             country["name"] = country_dict["country"]
@@ -92,7 +93,7 @@ def all_languages(request):
     page_number = request.GET.get('page')
     page_languages = paginator.get_page(page_number)
 
-    # Блок проверки на фильтр letter
+    # Блок фильтр проверки на letter
     letter = request.GET.get('letter')
     if letter:
         language_names = list(filter(lambda name: name[0] == letter, language_names))
@@ -114,22 +115,11 @@ def all_languages(request):
 
 # Функция создания странички языка
 def language_page(request, language_name):
-    # Блок создание множества уникальных языков
-    languages = set()
-    for languages_dict in countries_data:
-        languages.update(languages_dict["languages"])
-
-    country_names = []
     # Блок добавления страны
+    country_names = []
     for country_dict in countries_data:
         if language_name in country_dict["languages"]:
             country_names.append(country_dict["country"])
-
-    # неработающий блок который должен отображать названия текущего языка на стриничке language
-    lang = []
-    for lang_dict in country_names:
-        if languages in country_names:
-            lang.append(lang_dict["languages"])
 
     # Блок отвечающий за пагинацию всех стран на странице языка/language/Russian?page=2
     paginator = Paginator(country_names, COUNTRIES_ON_PAGE)
@@ -140,7 +130,6 @@ def language_page(request, language_name):
     context = {'page_name': "Language:",
                "page_language": page_language,
                "country_names": country_names,
-               'lang': lang,
                'total': count,
                }
     return render(request, 'language_page.html', context)
