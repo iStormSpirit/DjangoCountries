@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}
- {{ page_name }}{{ country_names }}
+ {{ page_name }}{{ pass }}
 {% endblock %}
 
 {% block content %}
 <br>
-<h1>Информация о языке </h1>
-<h5><em>Список стран использующих язык {{ lang }}</em></h5>
+<h1>Информация о языке {{ pass }}</h1>
+<h5><em>Список стран использующих язык {{ pass }}</em></h5>
 
 <button type="button" class="btn ">
-    <a href="/countries-list/">Список всех стран</a></button>
+    <a href="{% url 'countries-list' %}">Список всех стран</a></button>
 <button type="button" class="btn ">
-    <a href="/">Home</a></button>
+    <a href="{% url 'home' %}">Home</a></button>
 <button type="button" class="btn ">
-    <a href="/languages-list/">Список всех языков</a></button>
+    <a href="{% url 'languages-list' %}">Список всех языков</a></button>
 
 <ol><br>
     <!--    Блок наполнения и отображения стран из словаря с пагинацией-->

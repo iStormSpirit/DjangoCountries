@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}
-    {{ page_name }}
+{{ page_name }} {{ letter }}
 {% endblock %}
 
 {% block content %}
 <h1>Список всех языков</h1>
-<h5>Список всех языков по букве</h5>
+<h5>Список всех языков по букве {{ letter | default:""}}</h5>
 <!--Блок словаря-->
 {% for letter in alphabet %}
 <button type="button" class="btn btn-outline-warning">
@@ -14,11 +14,11 @@
 
 <br>
 <button type="button" class="btn ">
-    <a href="/countries-list/">Список всех стран</a></button>
+    <a href="{% url 'countries-list' %}">Список всех стран</a></button>
 <button type="button" class="btn ">
-    <a href="/">Home</a></button>
+    <a href="{% url 'home' %}">Home</a></button>
 <button type="button" class="btn ">
-    <a href="/languages-list/">Список всех языков</a></button>
+    <a href="{% url 'languages-list' %}">Список всех языков</a></button>
 <br>
 
 
