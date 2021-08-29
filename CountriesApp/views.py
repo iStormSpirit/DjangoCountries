@@ -83,10 +83,8 @@ def all_languages(request):
 
     # Блок добавления и сортировки уникальных языков в список из множества
     language_names = []
-    count = 0
     for languages_dict in languages:
         language_names.append(languages_dict)
-        count += 1
     language_names = sorted(language_names)
 
     # Блок пагинации всего списка языков
@@ -104,6 +102,7 @@ def all_languages(request):
         page_number = request.GET.get('page')
         page_languages = paginator.get_page(page_number)
 
+    count = len(language_names)
     context = {'page_name': "Languages",
                "page_languages": page_languages,
                "alphabet": alphabet,
@@ -121,11 +120,9 @@ def language_page(request, language_name):
         languages.update(languages_dict["languages"])
 
     country_names = []
-    count = 0
     # Блок добавления страны
     for country_dict in countries_data:
         if language_name in country_dict["languages"]:
-            count += 1
             country_names.append(country_dict["country"])
 
     # неработающий блок который должен отображать названия текущего языка на стриничке language
@@ -139,7 +136,7 @@ def language_page(request, language_name):
     page_number = request.GET.get('page')
     page_language = paginator.get_page(page_number)
 
-
+    count = len(country_names)
     context = {'page_name': "Language:",
                "page_language": page_language,
                "country_names": country_names,
