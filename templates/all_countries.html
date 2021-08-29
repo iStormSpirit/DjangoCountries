@@ -6,12 +6,14 @@
 {% block content %}
 <h1>Список всех стран </h1>
 <h5>Список всех стран по букве {{ letter | default:""}}</h5>
-<!--Блок словаря-->
+<!--Блок славаря-->
 {% for letter in alphabet %}
+<!--Гиперсылки букв словаря-->
 <button type="button" class="btn btn-outline-warning">
     <a href="?letter={{ letter }}">{{ letter }}</a></button>
 {% endfor %}
 
+<!--Блок кнопок нафигации-->
 <br>
 <button type="button" class="btn ">
     <a href="{% url 'countries-list' %}">Список всех стран</a></button>
@@ -34,10 +36,10 @@
 </ol>
 
 <h5><em> Всего: {{ total }} </em></h5>
-<div class="pagination">
-                <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
 
-                <span class="step-links">
+<div class="pagination">
+    <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
+    <span class="step-links">
         <em>Pagination letter</em><br>
         {% if page_countries.has_previous %}
             <button type="button" class="btn "><a href="?page=1&letter={{ letter }}">&laquo; first</a></button>
@@ -57,7 +59,7 @@
         {% endif %}
     </span>
 
-            </div>
+</div>
 
 <br>
 
