@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 with open("CountriesApp/list_of_countries.json") as f:
     countries_data = json.load(f)
 
-# Кол-во стран на странице /countries-list/?page=2
+# Кол-во стран на странице
 COUNTRIES_ON_PAGE = 10
 # Кол-во стран в фильтре по букве /countries-list/?letter=D
 COUNTRIES_ON_LETTER = 10
@@ -22,7 +22,7 @@ def main(request):
 
 
 # Функция создание странички списка стран countries_list
-def all_countries(request, letter=None):
+def all_countries(request):
     alphabet = string.ascii_uppercase
     country_names = []
     for country_dict in countries_data:
@@ -43,7 +43,14 @@ def all_countries(request, letter=None):
         page_number = request.GET.get('page')
         page_countries = paginator.get_page(page_number)
 
-    context = {'page_name': "Countries", "page_countries": page_countries, "alphabet": alphabet, "letter": letter}
+    count = len(country_names)
+
+    context = {'page_name': "Countries",
+               "page_countries": page_countries,
+               "alphabet": alphabet,
+               "letter": letter,
+               'total': count,
+               }
     return render(request, 'all_countries.html', context)
 
 
@@ -56,20 +63,16 @@ def country_page(request, country_name):
             country["name"] = country_dict["country"]
             country["languages"] = country_dict["languages"]
 
-            context = {'page_name': "Country: ", "country": country}
+            count = len(country["languages"])
+            context = {'page_name': "Country: ",
+                       "country": country,
+                       'total': count,
+                       }
             return render(request, 'country_page.html', context)
     raise Http404
 
 
-# Функция для отображения стран при переходе по языку
-def countries_filter_by_language(request, language):
-    country_names = []
-    for country_dict in countries_data:
-        if language in country_dict["languages"]:
-            country_names.append(country_dict["country"])
-    return render(request, 'all_countries.html', {"page_countries": country_names})
-
-
+# Функция создания списка языков
 def all_languages(request):
     alphabet = string.ascii_uppercase
 
@@ -80,8 +83,10 @@ def all_languages(request):
 
     # Блок добавления и сортировки уникальных языков в список из множества
     language_names = []
-    for i in languages:
-        language_names.append(i)
+    count = 0
+    for languages_dict in languages:
+        language_names.append(languages_dict)
+        count += 1
     language_names = sorted(language_names)
 
     # Блок пагинации всего списка языков
@@ -99,5 +104,46 @@ def all_languages(request):
         page_number = request.GET.get('page')
         page_languages = paginator.get_page(page_number)
 
-    context = {'page_name': "Languages", "page_languages": page_languages, "alphabet": alphabet, "letter": letter}
+    context = {'page_name': "Languages",
+               "page_languages": page_languages,
+               "alphabet": alphabet,
+               "letter": letter,
+               'total': count,
+               }
     return render(request, 'all_languages.html', context)
+
+
+# Функция создания странички языка
+def language_page(request, language_name):
+    # Блок создание множества уникальных языков
+    languages = set()
+    for languages_dict in countries_data:
+        languages.update(languages_dict["languages"])
+
+    country_names = []
+    count = 0
+    # Блок добавления страны
+    for country_dict in countries_data:
+        if language_name in country_dict["languages"]:
+            count += 1
+            country_names.append(country_dict["country"])
+
+    # неработающий блок который должен отображать названия текущего языка на стриничке language
+    lang = []
+    for lang_dict in country_names:
+        if languages in country_names:
+            lang.append(lang_dict["languages"])
+
+    # Блок отвечающий за пагинацию всех стран на странице языка/language/Russian?page=2
+    paginator = Paginator(country_names, COUNTRIES_ON_PAGE)
+    page_number = request.GET.get('page')
+    page_language = paginator.get_page(page_number)
+
+
+    context = {'page_name': "Language:",
+               "page_language": page_language,
+               "country_names": country_names,
+               'lang': lang,
+               'total': count,
+               }
+    return render(request, 'language_page.html', context)

@@ -1,20 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}
- {{page_name }} {{ country.name }}
+ {{ page_name }} {{ country.name }}
 {% endblock %}
 
 {% block content %}
 <br>
 <h1>Информация о стране {{ country.name }}</h1>
 <h5><em>Список используемых языков в стране {{ country.name }}:</em></h5>
-<br>
 
-<ol>
-    {% for language in country.languages %}
-        <li><button type="button" class="btn btn-light">
-            <a href="/countries-list/{{ language }}">{{ language }}</a></button></li>
-    {% endfor %}
-</ol>
 
 <button type="button" class="btn ">
     <a href="/countries-list/">Список всех стран</a></button>
@@ -22,5 +15,14 @@
     <a href="/">Home</a></button>
 <button type="button" class="btn ">
     <a href="/languages-list/">Список всех языков</a></button>
+
+<ol><br>
+    {% for language in country.languages %}
+        <li><button type="button" class="btn btn-light">
+            <a href="/language/{{ language }}">{{ language }}</a></button></li>
+    {% endfor %}
+</ol>
+
+<h5><em> Всего: {{ total }} </em></h5>
 {% include 'inc/inc-footer.html' %}
 {% endblock %}

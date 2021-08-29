@@ -26,10 +26,12 @@
     <br>
     {% for language_name in page_languages %}
     <li><button type="button" class="btn btn-light">
-        <a href="/countries-list/{{ language }}"> {{ language_name }}</a></button></li>
+        <a href="/language/{{ language_name }}"> {{ language_name }}</a></button></li>
     {% endfor %}
 </ol>
 
+
+<h5><em> Всего: {{ total }} </em></h5>
 <div class="pagination">
     <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
 

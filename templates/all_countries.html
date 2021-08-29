@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-    {{ page_name }}
+{{ page_name }}
 {% endblock %}
 
 {% block content %}
@@ -26,14 +26,18 @@
     <!--    views.py COUNTRIES_ON_PAGE = 10-->
     {% for country_name in page_countries %}
     <!--    Гиперсылки стран-->
-    <li><button type="button" class="btn btn-light">
-        <a href="/country/{{ country_name }}">{{ country_name }}</a></button></li>
+    <li>
+        <button type="button" class="btn btn-light">
+            <a href="/country/{{ country_name }}">{{ country_name }}</a></button>
+    </li>
     {% endfor %}
 </ol>
 
+<h5><em> Всего: {{ total }} </em></h5>
 <div class="pagination">
-    <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
-    <span class="step-links">
+                <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
+
+                <span class="step-links">
         <em>Pagination letter</em><br>
         {% if page_countries.has_previous %}
             <button type="button" class="btn "><a href="?page=1&letter={{ letter }}">&laquo; first</a></button>
@@ -52,7 +56,8 @@
                     href="?page={{ page_countries.paginator.num_pages }}&letter={{ letter }}">last &raquo;</a></button>
         {% endif %}
     </span>
-</div>
+
+            </div>
 
 <br>
 
@@ -62,7 +67,7 @@
         <em>Pagination countries</em><br>
         {% if page_countries.has_previous %}
             <button type="button" class="btn "><a href="?page=1">&laquo; first</a></button>
-            <button type="button" class="btn disabled"><a
+            <button type="button" class="btn "><a
                     href="?page={{ page_countries.previous_page_number }}">previous</a></button>
         {% endif %}
 
