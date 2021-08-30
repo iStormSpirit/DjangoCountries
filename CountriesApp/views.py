@@ -69,8 +69,8 @@ def country_page(request, country_name):
                        "country": country,
                        'total': count,
                        }
-            return render(request, 'country_page.html', context)
-    raise Http404
+    return render(request, 'country_page.html', context)
+
 
 
 # Функция создания списка языков
