@@ -64,13 +64,12 @@ def country_page(request, country_name):
             country["name"] = country_dict["country"]
             country["languages"] = country_dict["languages"]
 
-            count = len(country["languages"])
-            context = {'page_name': "Country: ",
-                       "country": country,
-                       'total': count,
-                       }
+    count = len(country["languages"])
+    context = {'page_name': "Country: ",
+               "country": country,
+               'total': count,
+               }
     return render(request, 'country_page.html', context)
-
 
 
 # Функция создания списка языков
