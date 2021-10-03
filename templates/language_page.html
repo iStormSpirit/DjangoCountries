@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
- {{ page_name }}{{ pass }}
+{{ page_name }}{{ pass }}
 {% endblock %}
 
 {% block content %}
@@ -20,15 +20,19 @@
     <!--    views.py COUNTRIES_ON_PAGE = 10-->
     {% for country_name in page_language %}
     <!--    Гиперсылки стран-->
-    <li><button type="button" class="btn btn-light">
-        <a href="/country/{{ country_name }}">{{ country_name }}</a></button></li>
+    <li>
+        <button type="button" class="btn btn-light">
+            <a href="/country/{{ country_name }}">{{ country_name }}</a></button>
+    </li>
     {% endfor %}
 </ol>
 
 <h5><em> Всего: {{ total }} </em></h5>
-<div class="pagination">
-    <!--Блок пагинации countries-list/?page=2-->
-    <span class="step-links">
+
+<div class="d-inline-flex p-2 bd-highlight">
+    <div class="pagination">
+        <!--Блок пагинации countries-list/?page=2-->
+        <span class="step-links">
         <em>Pagination countries</em><br>
         {% if page_language.has_previous %}
             <button type="button" class="btn "><a href="?page=1">&laquo; first</a></button>
@@ -45,6 +49,7 @@
             <button type="button" class="btn "><a href="?page={{ page_language.paginator.num_pages }}">last &raquo;</a></button>
         {% endif %}
     </span>
+    </div>
 </div>
 {% include 'inc/inc-footer.html' %}
 {% endblock %}

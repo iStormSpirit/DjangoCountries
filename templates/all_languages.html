@@ -30,8 +30,9 @@
     {% endfor %}
 </ol>
 
-
 <h5><em> Всего: {{ total }} </em></h5>
+
+<div class="d-inline-flex p-2 bd-highlight">
 <div class="pagination">
     <!--Блок пагинации при фильтрации по букве letter -->
     <span class="step-links">
@@ -51,9 +52,10 @@
         {% endif %}
     </span>
 </div>
-
+</div>
 <br>
 
+<div class="d-inline-flex p-2 bd-highlight">
 <div class="pagination">
     <!--Блок пагинации -->
     <span class="step-links">
@@ -72,6 +74,7 @@
             <button type="button" class="btn "><a href="?page={{ page_languages.paginator.num_pages }}">last &raquo;</a></button>
         {% endif %}
     </span>
+</div>
 </div>
 
 {% endblock %}
