@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-{{ page_name }} {{ letter }}
+{{ page_name }} {{ letter | default:""}}
 {% endblock %}
 
 {% block content %}

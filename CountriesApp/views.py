@@ -44,6 +44,7 @@ def all_countries(request):
         paginator = Paginator(country_names, COUNTRIES_ON_LETTER)
         page_number = request.GET.get('page')
         page_countries = paginator.get_page(page_number)
+        # page_countries = country_names
 
     count = len(country_names)
 
@@ -127,6 +128,7 @@ def language_page(request, language_name):
 
     count = len(country_names)
     context = {'page_name': "Language:",
+               "language_name": language_name,
                "page_language": page_language,
                "country_names": country_names,
                'total': count,

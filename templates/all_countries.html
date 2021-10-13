@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-{{ page_name }} {{ letter }}
+{{ page_name }} {{ letter | default:""}}
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,6 @@
     <a href="{% url 'home' %}">Home</a></button>
 <button type="button" class="btn ">
     <a href="{% url 'languages-list' %}">Список всех языков</a></button>
-<br>
 
 <ol><br>
     <!--    Блок наполнения и отображения стран из словаря с пагинацией-->
