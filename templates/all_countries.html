@@ -36,11 +36,12 @@
 
 <h5><em> Всего: {{ total }} </em></h5>
 
+{% if letter %}
+
 <div class="d-inline-flex p-2 bd-highlight">
     <div class="pagination">
         <!--Блок пагинации при фильтрации по букве letter countries-list/?page=2&letter=B-->
         <span class="step-links">
-        <em>Pagination letter</em><br>
         {% if page_countries.has_previous %}
             <button type="button" class="btn "><a href="?page=1&letter={{ letter }}">&laquo; first</a></button>
             <button type="button" class="btn "><a
@@ -61,13 +62,12 @@
     </div>
 </div>
 
-<br>
+{% else %}
 
 <div class="d-inline-flex p-2 bd-highlight">
     <div class="pagination">
         <!--Блок пагинации countries-list/?page=2-->
         <span class="step-links">
-        <em>Pagination countries</em><br>
         {% if page_countries.has_previous %}
             <button type="button" class="btn "><a href="?page=1">&laquo; first</a></button>
             <button type="button" class="btn "><a
@@ -85,4 +85,7 @@
     </span>
     </div>
 </div>
+
+{% endif %}
+
 {% endblock %}

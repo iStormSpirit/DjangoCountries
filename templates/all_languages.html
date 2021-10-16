@@ -32,11 +32,12 @@
 
 <h5><em> Всего: {{ total }} </em></h5>
 
+{% if letter %}
+
 <div class="d-inline-flex p-2 bd-highlight">
 <div class="pagination">
     <!--Блок пагинации при фильтрации по букве letter -->
     <span class="step-links">
-        <em>Pagination letter</em><br>
         {% if page_languages.has_previous %}
             <button type="button" class="btn "><a href="?page=1&letter={{ letter }}">&laquo; first</a></button>
             <button type="button" class="btn "><a href="?page={{ page_languages.previous_page_number }}&letter={{ letter }}">previous</a></button>
@@ -53,13 +54,13 @@
     </span>
 </div>
 </div>
-<br>
+
+{% else %}
 
 <div class="d-inline-flex p-2 bd-highlight">
 <div class="pagination">
     <!--Блок пагинации -->
     <span class="step-links">
-        <em>Pagination languages</em><br>
         {% if page_languages.has_previous %}
             <button type="button" class="btn "><a href="?page=1">&laquo; first</a></button>
             <button type="button" class="btn "><a href="?page={{ page_languages.previous_page_number }}">previous</a></button>
@@ -76,5 +77,7 @@
     </span>
 </div>
 </div>
+
+{% endif %}
 
 {% endblock %}
